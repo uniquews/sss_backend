@@ -83,8 +83,6 @@ public class Linklist {
 
 		}
 
-		System.out.println();
-
 	}
 
 	public Node findByPos(int index) {

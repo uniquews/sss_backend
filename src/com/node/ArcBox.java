@@ -9,32 +9,24 @@ public class ArcBox {
 	public ArcBox hlink; //next arc with same head
 	int info; //
 	
-	public ArcBox(){
-		this.headCourse="";
-		this.tailCourse="";
-		this.hlink=null;
-		this.tlink=null;
-	}
 	
-	
-	public ArcBox(String tail, String head, int info){ //构造函数,没有初始化指针
-		this.tailCourse = tail;//
+	public ArcBox(String tail, String head, int info){
+		this.tailCourse = tail;
 		this.headCourse = head;
 		this.info = info;
-		this.hlink=null;
-		this.tlink=null;
 		
 	}
 	
-	public void showArcFromTail(){
-		String outPut = this.tailCourse + "-->" +this.headCourse+" with " +info;
+	public void showArcFromTail2Head(){
+		
+		String outPut = this.tailCourse + "-->" +this.headCourse+"with" +info;
 		System.out.println(outPut);
 		
 		return;
 	}
 	
-	public void showArcFromHead(){
-		String outPut = this.tailCourse + "-->" +this.headCourse+" with " +info;
+	public void showArcFromHead2Tail(){
+		String outPut = this.headCourse + "-->" +this.tailCourse+"with" +info;
 		System.out.println(outPut);
 		return;
 	}

@@ -1,6 +1,6 @@
 package req_and_course;
 
-public class CourseNode {
+public class CourseNode {  //
 
 	public String rName;
 	public CourseNode next;

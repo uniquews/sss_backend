@@ -6,15 +6,6 @@ public class Node {
 	
 	public String courseName;
 	public ArcBox firstIn, firstOut;
-	public boolean visited = false;  //course is marked, visited=true
-	public boolean finished = false; //course is selected successfully with pre/core-requisite finished = true ;
-	
-	public Node(){
-		this.courseName = "";
-		this.firstIn = null;
-		this.firstOut = null;
-	}
-	
 	
 	public Node(String courseName){
 		this.courseName = courseName;

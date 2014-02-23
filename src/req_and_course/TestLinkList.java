@@ -7,7 +7,6 @@ public class TestLinkList {
 	public ArrayList<Linklist> course_list = new ArrayList<Linklist>(); //requirement list
 	public ArrayList<Course_LinkList> course_list2 = new ArrayList<Course_LinkList>(); //course list
  
-	
 	public void addReq2List(Linklist linklist) {
 		this.course_list.add(linklist);
 	}
@@ -29,6 +28,78 @@ public class TestLinkList {
 			course_list2.get(i).displayAllNodes();
 		}
 	}
+	
+	/***
+	 * AUTHOR: rtong
+	 * @param  reqName
+	 * @return 1 for success, -1 for fail
+	 */
+	public int deleteReqFromList(String reqName) {
+		for(int i = 0; i < course_list.size(); i++){
+			// find the requirement needed to be deleted
+			if(course_list.get(i).first.cName.equals(reqName)){
+				// find the courses that are included in the requirement
+				Node current = course_list.get(i).first.next;
+				while (current != null) {
+					for(int j = 0; j < course_list2.size(); j++){
+						// find out the requirement in course list that needed to be deleted
+						if (course_list2.get(j).first.rName.equals(current.cName)){
+							course_list2.get(j).deleteByData(reqName);
+							break;
+						}
+					}
+					current = current.next;
+
+				}
+				
+				course_list.remove(i);
+				return 1;
+			}
+		}
+		return -1;
+	}
+	
+	/**
+	 * AUTHOR: rtong
+	 * @param cName
+	 * @param reqName
+	 * @return
+	 */
+	public int deleteCourseFromReq(String cName, String reqName){
+		for(int i = 0; i < course_list.size(); i++){
+			// find the requirement needed to be deleted from
+			if(course_list.get(i).first.cName.equals(reqName)){
+				// find the courses that are included in the requirement
+				Node current = course_list.get(i).first.next;
+				while (current != null) {
+					Node tmp = current.next;
+					// find out the course needed to be deleted in the requirement
+					if (current.cName.equals(cName)){
+						for(int j = 0; j < course_list2.size(); j++){
+							// find out the requirement in course list that needed to be deleted
+							if (course_list2.get(j).first.rName.equals(current.cName)){
+								course_list2.get(j).deleteByData(reqName);
+								break;
+							}
+						}
+						course_list.get(i).deleteByData(cName);
+					}
+					current = tmp;
+				}
+				
+				// delete the course from the requirement
+				return 1;
+			}
+		}
+		return -1;
+	}
+	
+	/**
+	 * 
+	 * @param reqName
+	 * @param courseName
+	 * @return
+	 */
 
 	// choose a course in a requirement link list
 	// First, we need to find this course in a specific requirement. Given a
@@ -117,7 +188,6 @@ public class TestLinkList {
 		System.out.print("Size is: "+size);
 		System.out.println();
 
-		list.displayReqList();//显示requirement list
 
 		Course_LinkList cLink_list = new Course_LinkList();// 课程链表
 		cLink_list.addFirstNode("CS105");
@@ -156,18 +226,29 @@ public class TestLinkList {
 		list.course_list2.add(cLink_list4);
 		list.course_list2.add(cLink_list5);
 		list.course_list2.add(cLink_list6);
+
+//		list.displayReqList();//显示requirement list
 		list.displayCourseList();//显示course list
 		
+//		list.deleteReqFromList("Requirement_1");
+		list.deleteCourseFromReq("CS404", "Requirement_4");
+		System.out.println("------------------After Deletion---------------");
+		
+//		list.displayReqList();
+		list.displayCourseList();
+/*		
 		//开始选课
-		chooeseSuccess = list.checkCourseIn_ReqList("Requirement_1", "CS109");
+		chooeseSuccess = list.checkCourseIn_ReqList("Requirement_1", "CS105");
+		list.checkCourseIn_ReqList("Requirement_1", "CS109");
 		if(chooeseSuccess){
+			System.out.println("Start choosing course");
 			list.displayReqList();//显示requirement list
 			list.displayCourseList();//显示course list
 		}else
 		{
 			System.out.print("failed");
 		}
-		
+*/		
 	}
 
 }
